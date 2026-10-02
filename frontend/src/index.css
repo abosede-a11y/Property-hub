@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-chalk text-ink font-sans antialiased;
+}
+
+.font-display {
+  font-family: 'Fraunces', serif;
+  font-feature-settings: 'ss01' 1;
+}
+
+::selection {
+  background-color: #A9793B;
+  color: #F8F6F0;
+}
+
+:focus-visible {
+  outline: 2px solid #A9793B;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
