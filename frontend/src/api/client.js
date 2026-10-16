@@ -45,4 +45,12 @@ export const api = {
 
   adminListReviews: (status, token) => request(`/admin/reviews?status=${status}`, { token }),
   adminModerateReview: (id, status, token) => request(`/admin/reviews/${id}`, { method: 'PATCH', body: { status }, token }),
+
+  subscribeNewsletter: (payload) => request('/newsletter/subscribe', { method: 'POST', body: payload }),
+  lookupUnsubscribe: (newsletterToken) => request(`/newsletter/unsubscribe?token=${encodeURIComponent(newsletterToken)}`),
+  confirmUnsubscribe: (newsletterToken) => request('/newsletter/unsubscribe', { method: 'POST', body: { token: newsletterToken } }),
+
+  adminListSubscribers: (token) => request('/admin/newsletter/subscribers', { token }),
+  adminListNewsletterIssues: (token) => request('/admin/newsletter/issues', { token }),
+  adminSendNewsletterIssue: (payload, token) => request('/admin/newsletter/issues', { method: 'POST', body: payload, token }),
 };

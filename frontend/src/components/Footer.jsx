@@ -1,8 +1,21 @@
 import { Link } from 'react-router-dom';
+import NewsletterSignup from './NewsletterSignup';
 
 export default function Footer() {
   return (
     <footer className="bg-harbour-deep text-chalk/80 mt-24">
+      <div id="newsletter" className="border-b border-chalk/10">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-12 flex flex-col sm:flex-row sm:items-end justify-between gap-6">
+          <div>
+            <p className="font-display text-xl text-chalk">Stay in the loop</p>
+            <p className="mt-1 text-sm text-chalk/60 max-w-sm">
+              New listings and partner agency news, straight to your inbox. Unsubscribe any time.
+            </p>
+          </div>
+          <NewsletterSignup />
+        </div>
+      </div>
+
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-12 grid gap-10 sm:grid-cols-3">
         <div>
           <p className="font-display text-lg text-chalk">Property<span className="text-brass"> Hub</span></p>

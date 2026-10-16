@@ -15,6 +15,9 @@ import Listings from './pages/Listings';
 import ListingDetail from './pages/ListingDetail';
 import Dashboard from './pages/Dashboard';
 import AdminReviews from './pages/AdminReviews';
+import AdminNewsletter from './pages/AdminNewsletter';
+import Unsubscribe from './pages/Unsubscribe';
+import Terms from './pages/Terms';
 import NotFound from './pages/NotFound';
 
 export default function App() {
@@ -31,9 +34,12 @@ export default function App() {
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/listings" element={<Listings />} />
             <Route path="/listings/:id" element={<ListingDetail />} />
+            <Route path="/unsubscribe" element={<Unsubscribe />} />
+            <Route path="/terms" element={<Terms />} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/admin" element={<AdminRoute><AdminReviews /></AdminRoute>} />
+            <Route path="/admin/newsletter" element={<AdminRoute><AdminNewsletter /></AdminRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>

@@ -7,6 +7,7 @@ const rateLimit = require('express-rate-limit');
 const authRoutes = require('./routes/auth');
 const listingsRoutes = require('./routes/listings');
 const reviewsRoutes = require('./routes/reviews');
+const newsletterRoutes = require('./routes/newsletter');
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.get('/api/health', (req, res) => res.json({ ok: true }));
 app.use('/api/auth', authRoutes);
 app.use('/api/listings', listingsRoutes);
 app.use('/api', reviewsRoutes); // mounts /api/listings/:id/reviews, /api/reviews/*, /api/admin/reviews
+app.use('/api', newsletterRoutes); // mounts /api/newsletter/*, /api/admin/newsletter/*
 
 app.use((req, res) => res.status(404).json({ error: 'Not found.' }));
 

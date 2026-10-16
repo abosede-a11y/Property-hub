@@ -63,8 +63,37 @@ CREATE TABLE IF NOT EXISTS reviews (
   UNIQUE (listing_id, user_id)
 );
 
+-- Sprint 2: Subscription Newsletter (HLR 3). Open to anyone, not gated
+-- behind an account -- the acceptance criteria describe providing a name
+-- and email and agreeing to terms, with no mention of signing in first.
+CREATE TABLE IF NOT EXISTS newsletter_subscribers (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  email TEXT NOT NULL UNIQUE,
+  status TEXT NOT NULL DEFAULT 'subscribed' CHECK (status IN ('subscribed', 'unsubscribed')),
+  -- Used in the one-click unsubscribe link sent with every update, so
+  -- unsubscribing never requires signing in or knowing a password.
+  unsubscribe_token TEXT NOT NULL UNIQUE,
+  subscribed_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  unsubscribed_at TIMESTAMPTZ
+);
+
+-- An "update" sent out to subscribers (new property listings, partner
+-- agency news, etc). Created and sent by an admin.
+CREATE TABLE IF NOT EXISTS newsletter_issues (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  subject TEXT NOT NULL,
+  body TEXT NOT NULL,
+  created_by UUID REFERENCES users(id) ON DELETE SET NULL,
+  recipient_count INTEGER NOT NULL DEFAULT 0,
+  sent_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
 CREATE INDEX IF NOT EXISTS idx_users_email ON users (email);
 CREATE INDEX IF NOT EXISTS idx_listings_status ON listings (status);
 CREATE INDEX IF NOT EXISTS idx_listings_city ON listings (city);
 CREATE INDEX IF NOT EXISTS idx_reviews_listing ON reviews (listing_id);
 CREATE INDEX IF NOT EXISTS idx_reviews_status ON reviews (status);
+CREATE INDEX IF NOT EXISTS idx_newsletter_subscribers_status ON newsletter_subscribers (status);
+CREATE INDEX IF NOT EXISTS idx_newsletter_subscribers_email ON newsletter_subscribers (email);
